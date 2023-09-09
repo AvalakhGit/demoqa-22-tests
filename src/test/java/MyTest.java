@@ -34,6 +34,9 @@ public class MyTest {
 
         open("https://demoqa.com/automation-practice-form");
 
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
+
         $("#firstName").setValue(userFirstName);
         $("#lastName").setValue(userLastName);
         $("#userEmail").setValue(userEmail);
