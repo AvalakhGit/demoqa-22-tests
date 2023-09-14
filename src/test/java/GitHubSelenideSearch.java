@@ -8,6 +8,13 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
+/*
+$("h1 div") - ищет div который является первым внутри какого-то h1
+$("h1").$("div") - ищет первый div внутри первого h1. Если в первом h1 нет div - будет ошибка.
+ */
+
+
+
 public class GitHubSelenideSearch {
     @BeforeAll
     static void setUp() {
