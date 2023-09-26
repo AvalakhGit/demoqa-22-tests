@@ -1,3 +1,5 @@
+package qaunit8;
+
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -7,15 +9,9 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 
-public class DemoqaFillFormTest {
+public class DemoqaFillFormTest8 extends TestBase{
 
-    @BeforeAll
-    static void setUp() {
-        Configuration.holdBrowserOpen = false;
-        Configuration.pageLoadStrategy = "eager";
-        Configuration.browser="edge";
-        Configuration.browserSize = "1920x1080";
-    }
+
 
     @Test
     void fillFields() {
@@ -77,8 +73,5 @@ public class DemoqaFillFormTest {
         );
         $("#closeLargeModal").click();
     }
-    @AfterAll
-    static void tearDown(){
-        System.out.println("All done.");
-    }
+
 }

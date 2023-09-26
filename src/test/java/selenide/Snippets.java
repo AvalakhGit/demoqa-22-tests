@@ -27,6 +27,7 @@ public class Snippets {
         Selenide.clearBrowserCookies();
         Selenide.clearBrowserLocalStorage();
         Selenide.sessionStorage().clear();
+
         executeJavaScript("sessionStorage.clear();"); // no Selenide command for this yet
 
         Selenide.confirm(); // OK in alert dialogs
