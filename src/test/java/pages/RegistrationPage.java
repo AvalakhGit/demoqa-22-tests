@@ -2,13 +2,16 @@ package pages;
 
 import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
+import pages.components.CalendarComponent;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class RegistrationPage {
 
+    CalendarComponent calendarComponent=new CalendarComponent();
     //Selenide Elements
     SelenideElement firstNameInput = $("#firstName"),
                     lastNameInput = $("#lastName"),
@@ -46,8 +49,16 @@ public class RegistrationPage {
         userNumberInput.setValue(value);
         return this;
     }
-
-
+    public RegistrationPage setDateOfBirth(String day, String month, String year){
+        $("#dateOfBirthInput").click();
+        calendarComponent.setDate(day,month,year);
+        return this;
+    }
+//Доделать!
+    public RegistrationPage checkResult(String key, String value){
+        $(".table-responsive").$(byText(key)).sibling(1).shouldHave(text(value));
+        return this;
+    }
 
 
 }

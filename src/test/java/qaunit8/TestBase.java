@@ -3,8 +3,12 @@ package qaunit8;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import pages.RegistrationPage;
+import pages.components.CalendarComponent;
 
 public class TestBase {
+
+    RegistrationPage registrationPage=new RegistrationPage();
     @BeforeAll
     static void setUp() {
         Configuration.holdBrowserOpen = false;

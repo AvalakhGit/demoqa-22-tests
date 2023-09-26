@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class DemoqaFillFormTest8WithPageObj extends TestBase{
 
-RegistrationPage registrationPage=new RegistrationPage();
+
 
     @Test
     void fillFields() {
@@ -34,22 +34,9 @@ RegistrationPage registrationPage=new RegistrationPage();
                 .setLastName(userLastName)
                 .setEmail(userEmail)
                 .setGender(userGender)
-                .setUserNumber(userMobile);
+                .setUserNumber(userMobile)
+                .setDateOfBirth(userDateBirth[0],userDateBirth[1],userDateBirth[2]);
 
-//        open("https://demoqa.com/automation-practice-form");
-//        executeJavaScript("$('#fixedban').remove()");
-//        executeJavaScript("$('footer').remove()");
-
-//        $("#firstName").setValue(userFirstName);
-//        $("#lastName").setValue(userLastName);
-//        $("#userEmail").setValue(userEmail);
-//        $(By.xpath("//input[@name='gender' and @value='"+userGender+"']/following-sibling::label[@class='custom-control-label']")).click();
-//        $("#userNumber").setValue(userMobile);
-
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption(userDateBirth[1]);
-        $(".react-datepicker__year-select").selectOption(userDateBirth[2]);
-        $(".react-datepicker__day--0"+userDateBirth[0]).click();
 
         $("#subjectsInput").setValue(userSubjects[0]).pressEnter();
         $("#subjectsInput").setValue(userSubjects[1]).pressEnter();
@@ -66,6 +53,7 @@ RegistrationPage registrationPage=new RegistrationPage();
         $("#submit").click();
 
         $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+
         $(".table-responsive").shouldHave(
                 text(userFirstName+" "+userLastName),
                 text(userEmail),
@@ -76,8 +64,20 @@ RegistrationPage registrationPage=new RegistrationPage();
                 text(userHobbies[0]+", "+userHobbies[1]),
                 text("AtomicHeart_sample.jpg"),
                 text(userAddress),
-                text(userState+" "+userCity)
-        );
+                text(userState+" "+userCity));
+
+        registrationPage.checkResult ("Students name",userFirstName+" "+userLastName);
+        registrationPage.checkResult ("Student Email",userEmail);
+        registrationPage.checkResult ("Gender",userGender);
+        registrationPage.checkResult ("Mobile",userMobile);
+        registrationPage.checkResult ("Date of Birth",userDateBirth[0]+" "+userDateBirth[1]+","+userDateBirth[2]);
+        registrationPage.checkResult ("Subjects",userSubjects[0]+", "+userSubjects[1]);
+        registrationPage.checkResult ("Hobbies",userHobbies[0]+", "+userHobbies[1]);
+        registrationPage.checkResult ("Picture","AtomicHeart_sample.jpg");
+        registrationPage.checkResult ("Address",userAddress);
+        registrationPage.checkResult ("State and City",userState+" "+userCity);
+
+
         $("#closeLargeModal").click();
     }
 
