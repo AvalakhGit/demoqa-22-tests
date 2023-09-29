@@ -9,25 +9,20 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class DemoqaFillFormTest8WithPageObj extends TestBase{
 
-
-
+    String userFirstName = "UserFirstName";
+    String userLastName = "UserLastName";
+    String userEmail = "user_mail@mail.com";
+    String userGender = "Female";
+    String userAddress = "User Address. City One.";
+    String userMobile = "9991234560";
+    String userMobileBad = "99912560";
+    String[] userDateBirth = {"11","November","1979"};
+    String[] userSubjects={"Maths","Physics"};
+    String[] userHobbies= {"Sports","Reading"};
+    String userState = "NCR";
+    String userCity = "Delhi";
     @Test
     void fillFields() {
-
-        String userFirstName = "UserFirstName";
-        String userLastName = "UserLastName";
-        String userEmail = "user_mail@mail.com";
-        String userGender = "Female";
-        String userAddress = "User Address. City One.";
-        String userMobile = "9991234560";
-        String[] userDateBirth = {"11","November","1979"};
-        String[] userSubjects={"Maths","Physics"};
-        String[] userHobbies= {"Sports","Reading"};
-        String userState = "NCR";
-        String userCity = "Delhi";
-
-
-
         registrationPage
                 .openPage()
                 .setFirstName(userFirstName)
@@ -35,50 +30,79 @@ public class DemoqaFillFormTest8WithPageObj extends TestBase{
                 .setEmail(userEmail)
                 .setGender(userGender)
                 .setUserNumber(userMobile)
-                .setDateOfBirth(userDateBirth[0],userDateBirth[1],userDateBirth[2]);
+                .setDateOfBirth(userDateBirth[0],userDateBirth[1],userDateBirth[2])
+                .setSubject(userSubjects[0],userSubjects[1])
+                .setHobbies(userHobbies[0],userHobbies[1])
+                .uploadPicture("img/AtomicHeart_sample.jpg")
+                .setAddress(userAddress)
+                .setState(userState)
+                .setCity(userCity)
+                .submitButtonClick();
 
+        registrationPage
+                .checkResultModalVisible()
+                .checkResultModalTitleHaveMessage("Thanks for submitting the form")
+                .checkResult ("Student Name",userFirstName+" "+userLastName)
+                .checkResult ("Student Email",userEmail)
+                .checkResult ("Gender",userGender)
+                .checkResult ("Mobile",userMobile)
+                .checkResult ("Date of Birth",userDateBirth[0]+" "+userDateBirth[1]+","+userDateBirth[2])
+                .checkResult ("Subjects",userSubjects[0]+", "+userSubjects[1])
+                .checkResult ("Hobbies",userHobbies[0]+", "+userHobbies[1])
+                .checkResult ("Picture","AtomicHeart_sample.jpg")
+                .checkResult ("Address",userAddress)
+                .checkResult ("State and City",userState+" "+userCity)
+                .closeResultModal();
 
-        $("#subjectsInput").setValue(userSubjects[0]).pressEnter();
-        $("#subjectsInput").setValue(userSubjects[1]).pressEnter();
+    }
+    @Test
+    public void successRegisterRequiredFieldsTest() {
+        registrationPage.openPage()
+                .setFirstName(userFirstName)
+                .setLastName(userLastName)
+                .setGender(userGender)
+                .setUserNumber(userMobile)
+                .submitButtonClick();
 
-        $("label[for='hobbies-checkbox-1']").click();
-        $("label[for='hobbies-checkbox-2']").click();
+        registrationPage.checkResultModalVisible()
+                .checkResultModalTitleHaveMessage("Thanks for submitting the form")
+                .checkResult("Student Name", userFirstName + " " + userLastName)
+                .checkResult("Gender", userGender)
+                .checkResult("Mobile", userMobile);
+    }
 
-        $("#uploadPicture").uploadFromClasspath("img/AtomicHeart_sample.jpg");
+    @Test
+    public void closeModalWindowTest() {
+        registrationPage.openPage()
+                .setFirstName(userFirstName)
+                .setLastName(userLastName)
+                .setGender(userGender)
+                .setUserNumber(userMobile)
+                .submitButtonClick();
 
-        $("#currentAddress").setValue(userAddress);
-        $("#react-select-3-input").setValue(userState).pressEnter();
-        $("#react-select-4-input").setValue(userCity).pressEnter();
+        registrationPage.checkResultModalVisible()
+                .checkResultModalTitleHaveMessage("Thanks for submitting the form")
+                .closeResultModal()
+                .checkResultModalHidden();
+    }
 
-        $("#submit").click();
+    @Test
+    public void negativeRegisterWrongPhoneTest() {
+        registrationPage.openPage()
+                .setFirstName(userFirstName)
+                .setLastName(userLastName)
+                .setGender(userGender)
+                .setUserNumber(userMobileBad)
+                .submitButtonClick();
 
-        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+        registrationPage.checkResultModalHidden();
+    }
+    @Test
+    public void negativeRegisterEmptyFieldsTest() {
+        registrationPage.openPage()
+                .submitButtonClick();
 
-        $(".table-responsive").shouldHave(
-                text(userFirstName+" "+userLastName),
-                text(userEmail),
-                text(userGender),
-                text(userMobile),
-                text(userDateBirth[0]+" "+userDateBirth[1]+","+userDateBirth[2]),
-                text(userSubjects[0]+", "+userSubjects[1]),
-                text(userHobbies[0]+", "+userHobbies[1]),
-                text("AtomicHeart_sample.jpg"),
-                text(userAddress),
-                text(userState+" "+userCity));
-
-        registrationPage.checkResult ("Students name",userFirstName+" "+userLastName);
-        registrationPage.checkResult ("Student Email",userEmail);
-        registrationPage.checkResult ("Gender",userGender);
-        registrationPage.checkResult ("Mobile",userMobile);
-        registrationPage.checkResult ("Date of Birth",userDateBirth[0]+" "+userDateBirth[1]+","+userDateBirth[2]);
-        registrationPage.checkResult ("Subjects",userSubjects[0]+", "+userSubjects[1]);
-        registrationPage.checkResult ("Hobbies",userHobbies[0]+", "+userHobbies[1]);
-        registrationPage.checkResult ("Picture","AtomicHeart_sample.jpg");
-        registrationPage.checkResult ("Address",userAddress);
-        registrationPage.checkResult ("State and City",userState+" "+userCity);
-
-
-        $("#closeLargeModal").click();
+        registrationPage.checkResultModalHidden();
     }
 
 }
