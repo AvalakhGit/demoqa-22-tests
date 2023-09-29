@@ -5,10 +5,6 @@ import org.junit.jupiter.api.Test;
 import static qaunit9.TestData.*;
 
 public class DemoqaFillFormTest9WithPageObj extends TestBase9 {
-
-
-
-
     @Test
     void fillFields() {
         registrationPage
