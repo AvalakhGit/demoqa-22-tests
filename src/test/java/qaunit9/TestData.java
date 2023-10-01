@@ -50,6 +50,6 @@ public class TestData {
   public final String[] userDateBirth={
           RandomUtils.getItemFromDate("dd",userBirthday),
           RandomUtils.getItemFromDate("MMMM",userBirthday),
-          RandomUtils.getItemFromDate("YYYY",userBirthday)};
+          RandomUtils.getItemFromDate("y",userBirthday)};
 
 }
