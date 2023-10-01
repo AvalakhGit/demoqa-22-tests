@@ -4,7 +4,6 @@ import com.codeborne.selenide.SelenideElement;
 import pages.components.OutputComponent;
 
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class TextBoxPage {
 
