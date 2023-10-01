@@ -1,56 +1,40 @@
 package utils;
 
-import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomUtils {
 
-    public static void main(String[] args){
-        System.out.println(getRandomString(10));
-        System.out.println(getRandomPhone());
-        System.out.println(getRandomAddress());
-        System.out.println(getRandomGender());
-    }
-
-    public static String getRandomString (int len){
-        String AB="QAZWSXEDCRFVTGBYHNUJMIKOLPqazwsxedcrfvtgbyhnujmikolp";
-        SecureRandom rnd= new SecureRandom();
-        StringBuilder sb = new StringBuilder();
-
-        for(int i=0;i<len;i++){
-            sb.append(AB.charAt(rnd.nextInt(AB.length())));
-        }
-        return sb.toString();
-    }
-
-    public static String getRandomMail (int len){
-
-        return getRandomString(10)+"@mailing.ru";
-    }
-
-    public static String getRandomAddress (){
-
-        return getRandomString(10)+" " + getRandomString(3) +" " +getRandomString(7);
-    }
-
     public static int getRandomInt (int min,int max){
         return ThreadLocalRandom.current().nextInt(min,max+1);
     }
-    public static String getRandomPhone (){
 
-        return String.format("+%s (%s) %s - %s - %s",
-                getRandomInt(1,9),
-                getRandomInt(111,999),
-                getRandomInt(111,999),
-                getRandomInt(11,99),
-                getRandomInt(11,99));
-    }
-    public static String getRandomGender(){
-        String[] genders ={"Male","Female","Other"};
-        return getRandomItemFromArray(genders);
-    }
     public static String getRandomItemFromArray(String[] array){
         int index = getRandomInt(0, array.length - 1);
         return array[index];
     }
+    public static String getRandomItemFromArray(String[] array,int count){
+        int index = getRandomInt(0, array.length - 1);
+        return array[index];
+    }
+    public static String getItemFromDate(String pattern, Date date) {
+        SimpleDateFormat formatter = new SimpleDateFormat(pattern, Locale.ENGLISH);
+        return formatter.format(date);
+    }
+
+    public static ArrayList<String> getItemsRandom(String[] array, int count){
+        ArrayList<String> list = new ArrayList<String>(count);
+        int index=0;
+        for (int j=0;j<=count;j++){
+            index = getRandomInt(0, array.length - 1);
+
+            list.add(array[index]);
+        }
+        return list;
+    }
+
+
 }

@@ -1,47 +1,55 @@
 package qaunit9;
 
 import com.github.javafaker.Faker;
+import utils.RandomUtils;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
-import java.util.concurrent.ThreadLocalRandom;
-
-import static utils.RandomUtils.getRandomItemFromArray;
+import java.util.Map;
 
 public class TestData {
 
-   public static Faker indiaFaker = new Faker(new Locale("in-ID"));
+   Faker iFaker = new Faker(new Locale("in-ID"));
+  public String[] genders ={"Male","Female","Other"},
+            states = {"NCR",
+                    "Uttar Pradesh",
+                    "Haryana",
+                    "Rajasthan"},
+            subjects={"Hindi", "English", "Maths", "Physics",
+                    "Chemistry", "Computer Science", "Commerce", "Accounting",
+                    "Economics", "Arts", "Social Studies", "History",
+                    "Civics"},
+            hobbies= {"Sports","Reading","Music"};
+  Date userBirthday=iFaker.date().birthday();
+  String[][] stateCities={
+           {"Delhi", "Gurgaon", "Noida"},
+           {"Agra", "Lucknow", "Merrut"},
+           {"Karnal", "Panipat"},
+           {"Jaipur", "Jaiselmer"}};
+  Map<String,String> chosenCity = new HashMap<>(){{
+      put(states[0], RandomUtils.getRandomItemFromArray(stateCities[0]));
+      put(states[1], RandomUtils.getRandomItemFromArray(stateCities[1]));
+      put(states[2], RandomUtils.getRandomItemFromArray(stateCities[2]));
+      put(states[3], RandomUtils.getRandomItemFromArray(stateCities[3]));
+  }};
 
-   public static String getUserFirstName(){
-      return indiaFaker.name().firstName();
-   }
-   public static String getUserLastName(){
-      return indiaFaker.name().lastName();
-   }
+  public final String userFirstName = iFaker.name().firstName();
+  public final String userLastName = iFaker.name().lastName();
+  public final String userEmail = iFaker.internet().emailAddress(userFirstName+"."+userLastName);
+  public final String userGender =RandomUtils.getRandomItemFromArray(genders);
+  public final String userAddress = iFaker.address().streetAddress();
+  public final String userMobile = iFaker.phoneNumber().subscriberNumber(10);
+  public final String userMobileBad = iFaker.phoneNumber().subscriberNumber(9);
+  public final String userState = RandomUtils.getRandomItemFromArray(states);
+  public final String userCity = chosenCity.get(userState);
+  public final String userSubject=RandomUtils.getRandomItemFromArray(subjects);
+  public final String userHobbie=RandomUtils.getRandomItemFromArray(hobbies);
+  public final String picturePath="AtomicHeart"+ RandomUtils.getRandomInt(1,5)+".jpg";
 
-   public static String getUserEmail(String localPath){
-      return indiaFaker.internet().emailAddress(localPath);
-   }
-   public static String getRandomGender(){
-      String[] genders ={"Male","Female","Other"};
-      return getRandomItemFromArray(genders);
-   }
+  public final String[] userDateBirth={
+          RandomUtils.getItemFromDate("dd",userBirthday),
+          RandomUtils.getItemFromDate("MMMM",userBirthday),
+          RandomUtils.getItemFromDate("YYYY",userBirthday)};
 
-   public static String getUserMobile(int length){
-      return indiaFaker.phoneNumber().subscriberNumber(length);
-   }
-
-   public static String
-            userFirstName = "UserFirstName",
-            userLastName = "UserLastName",
-            userEmail = "user_mail@mail.com",
-            userGender = "Female",
-            userAddress = "User Address. City One.",
-            userMobile = "9991234560",
-            userMobileBad = "99912560",
-            userState = "NCR",
-            userCity = "Delhi";
-   public static String[]
-            userDateBirth = {"11","November","1979"},
-            userSubjects={"Maths","Physics"},
-            userHobbies= {"Sports","Reading"};
 }
