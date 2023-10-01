@@ -11,7 +11,6 @@ public class TextBoxTests extends TestBase {
     private static final String CURRENT_ADDRESS = "User Addres 1";
     private static final String PERMANENT_ADDRESS = "User Permanent Address";
 
-    private static final TextBoxPage textBoxPage = new TextBoxPage();
 
     @Test
     public void successfulFormInAllFieldsTest() {

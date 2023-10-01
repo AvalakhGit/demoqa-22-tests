@@ -6,17 +6,14 @@ import pages.components.OutputComponent;
 import static com.codeborne.selenide.Selenide.*;
 
 public class TextBoxPage {
-
     OutputComponent output = new OutputComponent();
-
     SelenideElement fullNameInput = $("#userName"),
             userEmail = $("#userEmail"),
             userAddress = $("#currentAddress"),
             userPermanentAddress = $("#permanentAddress"),
             submitButton = $("#submit");
-
     public TextBoxPage openPage() {
-        open("https://demoqa.com/text-box");
+        open("/text-box");
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
         return this;

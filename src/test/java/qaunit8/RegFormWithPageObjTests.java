@@ -2,7 +2,7 @@ package qaunit8;
 
 import org.junit.jupiter.api.Test;
 
-public class DemoqaFillFormTest8WithPageObj extends TestBase {
+public class RegFormWithPageObjTests extends TestBase {
 
     String userFirstName = "UserFirstName";
     String userLastName = "UserLastName";
@@ -18,7 +18,7 @@ public class DemoqaFillFormTest8WithPageObj extends TestBase {
     String userCity = "Delhi";
 
     @Test
-    void fillFields() {
+    void registrationFormFillAllFieldsAndCheck() {
         registrationPage
                 .openPage()
                 .setFirstName(userFirstName)
