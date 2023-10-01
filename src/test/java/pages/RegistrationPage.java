@@ -6,7 +6,6 @@ import pages.components.CalendarComponent;
 import pages.components.DropDownULComponent;
 import pages.components.ModalResultWindow;
 
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -35,7 +34,7 @@ public class RegistrationPage {
     //Actions
 
     public RegistrationPage openPage() {
-        open("https://demoqa.com/automation-practice-form");
+        open("/automation-practice-form");
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
         return this;

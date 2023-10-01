@@ -1,39 +1,26 @@
-package qaunit8;
+package qaunit9;
 
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import pages.RegistrationPage;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.*;
+import static qaunit9.TestData.*;
 
-public class DemoqaFillFormTest8WithPageObj extends TestBase{
-
-    String userFirstName = "UserFirstName";
-    String userLastName = "UserLastName";
-    String userEmail = "user_mail@mail.com";
-    String userGender = "Female";
-    String userAddress = "User Address. City One.";
-    String userMobile = "9991234560";
-    String userMobileBad = "99912560";
-    String[] userDateBirth = {"11","November","1979"};
-    String[] userSubjects={"Maths","Physics"};
-    String[] userHobbies= {"Sports","Reading"};
-    String userState = "NCR";
-    String userCity = "Delhi";
+public class RegFormWithFakerTests extends TestBase {
     @Test
-    void fillFields() {
+    public void registrationFormFillAllFieldsAndCheck() {
+        String userFirstName=getUserFirstName();
+        String userLastName=getUserLastName();
+
         registrationPage
                 .openPage()
                 .setFirstName(userFirstName)
                 .setLastName(userLastName)
-                .setEmail(userEmail)
-                .setGender(userGender)
-                .setUserNumber(userMobile)
+                .setEmail(getUserEmail(userFirstName+"."+userLastName))
+                .setGender(getRandomGender())
+                .setUserNumber(getUserMobile(10))
                 .setDateOfBirth(userDateBirth[0],userDateBirth[1],userDateBirth[2])
                 .setSubject(userSubjects[0],userSubjects[1])
                 .setHobbies(userHobbies[0],userHobbies[1])
-                .uploadPicture("img/AtomicHeart_sample.jpg")
+                .uploadPicture("img/AtomicHeart1.jpg")
                 .setAddress(userAddress)
                 .setState(userState)
                 .setCity(userCity)
@@ -55,6 +42,7 @@ public class DemoqaFillFormTest8WithPageObj extends TestBase{
                 .closeResultModal();
 
     }
+
     @Test
     public void successRegisterRequiredFieldsTest() {
         registrationPage.openPage()

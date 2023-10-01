@@ -34,7 +34,6 @@ public class RandomUtils {
     }
 
     public static int getRandomInt (int min,int max){
-
         return ThreadLocalRandom.current().nextInt(min,max+1);
     }
     public static String getRandomPhone (){
