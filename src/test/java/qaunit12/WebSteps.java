@@ -22,9 +22,9 @@ public class WebSteps extends TestBase {
 
     @Step("Ищем репозиторий {repo}")
     public void searchForRepository(String repo) {
-        $(".header-search-input").click();
-        $(".header-search-input").sendKeys(repo);
-        $(".header-search-input").submit();
+        $(".search-input").click();
+        $("#query-builder-test").sendKeys(repo);
+        $("#query-builder-test").submit();
     }
 
     @Step("Кликаем по ссылке репозитория {repo}")
