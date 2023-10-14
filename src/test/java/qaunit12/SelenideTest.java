@@ -9,23 +9,24 @@ import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static org.openqa.selenium.By.linkText;
+import static qaunit12.TestData.*;
 
 public class SelenideTest extends TestBase {
-    TestData testData = new TestData();
+
 
     @Test
     public void testIssueSearch() {
         SelenideLogger.addListener("allure", new AllureSelenide());
 
-        open(testData.PAGE_URL);
+        open(PAGE_URL);
 
         $(".search-input").click();
-        $("#query-builder-test").sendKeys(testData.REPO);
+        $("#query-builder-test").sendKeys(REPO);
         $("#query-builder-test").pressEnter();
 
-        $(linkText(testData.REPO)).click();
+        $(linkText(REPO)).click();
         $("#issues-tab").click();
-        $(withText(testData.ISSUE_NUMBER)).should(Condition.exist);
+        $(withText(ISSUE_NUMBER)).should(Condition.exist);
     }
 
 }

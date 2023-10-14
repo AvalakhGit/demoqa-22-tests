@@ -10,29 +10,29 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
 import static org.openqa.selenium.By.linkText;
+import static qaunit12.TestData.*;
 
 public class StepsTest extends TestBase {
-    TestData testData = new TestData();
     @Test
     public void testLambdaStep() {
         SelenideLogger.addListener("allure", new AllureSelenide());
 
         step("Открываем главную страницу", () -> {
-            open(testData.PAGE_URL);
+            open(PAGE_URL);
         });
-        step("Ищем репозиторий " + testData.REPO, () -> {
+        step("Ищем репозиторий " + REPO, () -> {
             $(".search-input").click();
-            $("#query-builder-test").sendKeys(testData.REPO);
+            $("#query-builder-test").sendKeys(REPO);
             $("#query-builder-test").pressEnter();
         });
-        step("Кликаем по ссылке репозитория " + testData.REPO, () -> {
-            $(linkText(testData.REPO)).click();
+        step("Кликаем по ссылке репозитория " + REPO, () -> {
+            $(linkText(REPO)).click();
         });
         step("Открываем таб Issues", () -> {
             $("#issues-tab").click();
         });
-        step("Проверяем наличие Issue с номером " + testData.ISSUE_NUMBER, () -> {
-            $(withText("#" + testData.ISSUE_NUMBER)).should(Condition.exist);
+        step("Проверяем наличие Issue с номером " + ISSUE_NUMBER, () -> {
+            $(withText("#" + ISSUE_NUMBER)).should(Condition.exist);
         });
     }
 
@@ -42,10 +42,10 @@ public class StepsTest extends TestBase {
         WebSteps steps = new WebSteps();
 
         steps.openMainPage();
-        steps.searchForRepository(testData.REPO);
-        steps.clickOnRepositoryLink(testData.REPO);
+        steps.searchForRepository(REPO);
+        steps.clickOnRepositoryLink(REPO);
         steps.openIssuesTab();
-        steps.shouldSeeIssueWithNumber(testData.ISSUE_NUMBER);
+        steps.shouldSeeIssueWithNumber(ISSUE_NUMBER);
 
     }
 
